@@ -19,7 +19,7 @@ export const PostList = ({ posts }) => {
   // console.log(userouteMatch);
 
   const postLinks = posts.map((post) => (
-    <PostLink key={post.id} userId={post.userId} post={post} />
+    <PostLink key={post.id} userId={post.userId} post={post} url={userouteMatch.url} />
   ));
 
   return (
@@ -32,7 +32,7 @@ export const PostList = ({ posts }) => {
           <Route path={userouteMatch.path}>
             <NoPostSelectedMessage />
           </Route>
-          <Route path={`${userouteMatch.path}/postId`}>
+          <Route path={`${userouteMatch.path}/:postId`}>
             <Post post={posts} />
           </Route>
         </Switch>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { deletePost } from "../api";
+import { deletePost , useParams } from "../api";
 
 import NoPostSelectedMessage from "./NoPostSelectedMessage";
 

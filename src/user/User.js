@@ -14,8 +14,8 @@ export const User = () => {
 
   const {userId} = useRouteMatch().params; // TODO: This ID will need to be pulled from parameters.
   // console.log(user.id)
-  console.log(userId); // >> 2
-  console.log(url,path); // >> /users/2 , /users/:userId
+  // console.log(userId); // >> 2
+  // console.log(url,path); // >> /users/2 , /users/:userId
 
 
   useEffect(() => {
