@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 import Post from "./Post";
 import PostLink from "./PostLink";
 import NoPostSelectedMessage from "./NoPostSelectedMessage";
@@ -15,6 +15,9 @@ import NoPostSelectedMessage from "./NoPostSelectedMessage";
 */
 
 export const PostList = ({ posts }) => {
+  const userouteMatch = useRouteMatch();
+  // console.log(userouteMatch);
+
   const postLinks = posts.map((post) => (
     <PostLink key={post.id} userId={post.userId} post={post} />
   ));
@@ -25,11 +28,23 @@ export const PostList = ({ posts }) => {
         <ul className="list-group">{postLinks}</ul>
       </div>
       <div className="col-9">
-        <NoPostSelectedMessage />
-        <Post posts={posts} />
+        <Switch>
+          <Route path={userouteMatch.path}>
+            <NoPostSelectedMessage />
+          </Route>
+          <Route path={`${userouteMatch.path}/postId`}>
+            <Post post={posts} />
+          </Route>
+        </Switch>
       </div>
     </div>
   );
 };
 
 export default PostList;
+
+/*
+  params: {userId: '1'}
+  path: "/users/:userId/posts"
+  url: "/users/1/posts" 
+  */

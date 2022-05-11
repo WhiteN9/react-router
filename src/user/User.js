@@ -4,11 +4,19 @@ import { fetchUserWithPosts } from "../api";
 import PostList from "./PostList";
 import PostsNav from "./PostsNav";
 import ErrorMessage from "../common/ErrorMessage";
+import { useHistory, Switch, Route, NavLink, useRouteMatch} from "react-router-dom";
 
 export const User = () => {
+  const history = useHistory();
   const [user, setUser] = useState({ posts: [] });
   const [error, setError] = useState(undefined);
-  const userId = 1; // TODO: This ID will need to be pulled from parameters.
+  const {url,path} = useRouteMatch();
+
+  const {userId} = useRouteMatch().params; // TODO: This ID will need to be pulled from parameters.
+  // console.log(user.id)
+  console.log(userId); // >> 2
+  console.log(url,path); // >> /users/2 , /users/:userId
+
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -22,13 +30,7 @@ export const User = () => {
   // TODO: Change the link below to go back to the home page.
 
   if (error) {
-    return (
-      <ErrorMessage error={error}>
-        <p>
-          <a>Return Home</a>
-        </p>
-      </ErrorMessage>
-    );
+    return <ErrorMessage error={error}>{history.push("/")}</ErrorMessage>;
   }
 
   /*
@@ -49,17 +51,23 @@ export const User = () => {
         <h2 className="mb-3">{user.name}</h2>
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <a className="nav-link">Profile</a>
+            <NavLink to={url} className="nav-link">Profile</NavLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link">Posts</a>
+            <NavLink to={`${url}/posts`} className="nav-link">Posts</NavLink>
           </li>
         </ul>
 
         {user.id ? (
           <div className="p-4 border border-top-0">
-            <PostList posts={user.posts} />
-            <UserProfile user={user} />
+            <Switch>
+              <Route path={`${path}/posts`}>
+                <PostList posts={user.posts} />
+              </Route>
+              <Route path={path}>
+                <UserProfile user={user} />
+              </Route>
+            </Switch>
           </div>
         ) : (
           <div className="p-4 border border-top-0">

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-
+import { Route, Switch } from "react-router-dom";
 import Header from "./common/Header";
 import CardList from "./home/CardList";
 import User from "./user/User";
@@ -18,8 +18,14 @@ function App() {
   return (
     <Fragment>
       <Header />
-      <User />
-      <CardList />
+      <Switch>
+        <Route exact path="/">
+          <CardList />
+        </Route>
+        <Route path="/users/:userId">
+          <User />
+        </Route>
+      </Switch>
     </Fragment>
   );
 }
