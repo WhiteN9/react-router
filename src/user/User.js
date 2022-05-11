@@ -4,16 +4,9 @@ import { fetchUserWithPosts } from "../api";
 import PostList from "./PostList";
 import PostsNav from "./PostsNav";
 import ErrorMessage from "../common/ErrorMessage";
-import {
-  useHistory,
-  Switch,
-  Route,
-  NavLink,
-  useRouteMatch,
-} from "react-router-dom";
+import { Switch, Route, NavLink, useRouteMatch, Link } from "react-router-dom";
 
 export const User = () => {
-  const history = useHistory();
   const [user, setUser] = useState({ posts: [] });
   const [error, setError] = useState(undefined);
   const { url, path } = useRouteMatch();
@@ -35,7 +28,11 @@ export const User = () => {
   // TODO: Change the link below to go back to the home page.
 
   if (error) {
-    return <ErrorMessage error={error}>{history.push("/")}</ErrorMessage>;
+    return (
+      <ErrorMessage error={error}>
+        <Link to="/">Return Home</Link>
+      </ErrorMessage>
+    );
   }
 
   /*
@@ -51,7 +48,7 @@ export const User = () => {
   */
   return (
     <section className="container">
-      <PostsNav history={history} />
+      <PostsNav />
       <div className="border p-4 h-100 d-flex flex-column">
         <h2 className="mb-3">{user.name}</h2>
         <ul className="nav nav-tabs">
