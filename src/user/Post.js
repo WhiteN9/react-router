@@ -1,11 +1,12 @@
 import React from "react";
-
-import { deletePost , useParams } from "../api";
+import { useParams , useHistory } from "react-router-dom";
+import { deletePost } from "../api";
 
 import NoPostSelectedMessage from "./NoPostSelectedMessage";
 
 export const Post = ({ posts }) => {
-  const postId = 1; // TODO: This ID will need to be pulled from parameters.
+  const history = useHistory();
+  const postId = useParams().postId; // TODO: This ID will need to be pulled from parameters.
   const post = posts.find((post) => post.id === Number(postId));
 
   const handleDelete = async (id) => {
@@ -13,6 +14,7 @@ export const Post = ({ posts }) => {
     if (result) {
       await deletePost(id);
       // TODO: After the post is deleted, send the user to the home page.
+      history.push("/");
     }
   };
 

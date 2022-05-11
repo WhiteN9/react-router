@@ -4,19 +4,24 @@ import { fetchUserWithPosts } from "../api";
 import PostList from "./PostList";
 import PostsNav from "./PostsNav";
 import ErrorMessage from "../common/ErrorMessage";
-import { useHistory, Switch, Route, NavLink, useRouteMatch} from "react-router-dom";
+import {
+  useHistory,
+  Switch,
+  Route,
+  NavLink,
+  useRouteMatch,
+} from "react-router-dom";
 
 export const User = () => {
   const history = useHistory();
   const [user, setUser] = useState({ posts: [] });
   const [error, setError] = useState(undefined);
-  const {url,path} = useRouteMatch();
+  const { url, path } = useRouteMatch();
 
-  const {userId} = useRouteMatch().params; // TODO: This ID will need to be pulled from parameters.
+  const { userId } = useRouteMatch().params; // TODO: This ID will need to be pulled from parameters.
   // console.log(user.id)
   // console.log(userId); // >> 2
   // console.log(url,path); // >> /users/2 , /users/:userId
-
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -46,15 +51,19 @@ export const User = () => {
   */
   return (
     <section className="container">
-      <PostsNav />
+      <PostsNav history={history} />
       <div className="border p-4 h-100 d-flex flex-column">
         <h2 className="mb-3">{user.name}</h2>
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <NavLink to={url} className="nav-link">Profile</NavLink>
+            <NavLink to={url} className="nav-link">
+              Profile
+            </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={`${url}/posts`} className="nav-link">Posts</NavLink>
+            <NavLink to={`${url}/posts`} className="nav-link">
+              Posts
+            </NavLink>
           </li>
         </ul>
 

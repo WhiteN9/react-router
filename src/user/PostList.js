@@ -15,11 +15,11 @@ import NoPostSelectedMessage from "./NoPostSelectedMessage";
 */
 
 export const PostList = ({ posts }) => {
-  const userouteMatch = useRouteMatch();
+  const { url, path } = useRouteMatch();
   // console.log(userouteMatch);
 
   const postLinks = posts.map((post) => (
-    <PostLink key={post.id} userId={post.userId} post={post} url={userouteMatch.url} />
+    <PostLink key={post.id} userId={post.userId} post={post} url={url} />
   ));
 
   return (
@@ -29,11 +29,11 @@ export const PostList = ({ posts }) => {
       </div>
       <div className="col-9">
         <Switch>
-          <Route path={userouteMatch.path}>
+          <Route exact path={path}>
             <NoPostSelectedMessage />
           </Route>
-          <Route path={`${userouteMatch.path}/:postId`}>
-            <Post post={posts} />
+          <Route path={`${path}/:postId`}>
+            <Post posts={posts} />
           </Route>
         </Switch>
       </div>
