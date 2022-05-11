@@ -6,14 +6,13 @@ import NoPostSelectedMessage from "./NoPostSelectedMessage";
 
 export const Post = ({ posts }) => {
   const history = useHistory();
-  const postId = useParams().postId; // TODO: This ID will need to be pulled from parameters.
+  const postId = useParams().postId;
   const post = posts.find((post) => post.id === Number(postId));
 
   const handleDelete = async (id) => {
     const result = window.confirm("Are you sure you want to delete this post?");
     if (result) {
       await deletePost(id);
-      // TODO: After the post is deleted, send the user to the home page.
       history.push("/");
     }
   };

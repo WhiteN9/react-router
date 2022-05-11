@@ -4,19 +4,8 @@ import Post from "./Post";
 import PostLink from "./PostLink";
 import NoPostSelectedMessage from "./NoPostSelectedMessage";
 
-/*
-  TODO: Update the below so that the components show on the appropriate route.
-
-  The <NoPostSelectedMessage /> component should show up on the following route:
-  /users/:userId/posts
-
-  The <Post /> component should show up on the following route:
-  /users/:userId/posts/:postId
-*/
-
 export const PostList = ({ posts }) => {
   const { url, path } = useRouteMatch();
-  // console.log(userouteMatch);
 
   const postLinks = posts.map((post) => (
     <PostLink key={post.id} userId={post.userId} post={post} url={url} />
@@ -42,9 +31,3 @@ export const PostList = ({ posts }) => {
 };
 
 export default PostList;
-
-/*
-  params: {userId: '1'}
-  path: "/users/:userId/posts"
-  url: "/users/1/posts" 
-  */
